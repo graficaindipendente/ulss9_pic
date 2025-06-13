@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nintendo Switch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: row;
+        }
+
+        .card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .card-content {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .card h4 {
+            font-size: 0.6em;
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .card p {
+            margin: 10px 0 0;
+            font-size: 0.95em;
+        }
+
+        .extra-images {
+            margin-top: 10px;
+        }
+
+        .extra-images img {
+            width: 250px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Nintendo Switch</h1>
+    <div class="grid" id="card-container"></div>
+
+    <!-- PapaParse per leggere il CSV -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+    <script>
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqhkY2nqdQ5OMhYSfOLZWk7YYNiB0v3vJQxuSTL3udiKhrsLhQzgJ2LNkI4RuG7-3no8QtUx2_O2l-/pub?output=csv';
+
+        Papa.parse(csvUrl, {
+            download: true,
+            header: true,
+            complete: function (results) {
+                const data = results.data;
+                const container = document.getElementById('card-container');
+
+                data.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    const img = document.createElement('img');
+                    img.src = item['Foto 1'] || '';
+                    img.alt = 'Foto principale';
+
+                    const content = document.createElement('div');
+                    content.className = 'card-content';
+
+                    const subtitle = document.createElement('h4');
+                    subtitle.textContent = item['Sottotitolo'] || '';
+
+                    const title = document.createElement('h3');
+                    title.textContent = item['Titolo'] || '';
+                    const title2 = document.createElement('h3');
+                    title2.textContent = item['Edizione'] || '';
+
+
+                    const desc = document.createElement('p');
+                    desc.textContent = item['Descrizione'] || '';
+
+                    const extraContainer = document.createElement('div');
+                    extraContainer.className = 'extra-images';
+                    extraContainer.style.display = 'none';
+
+                    ['Foto 2', 'Foto 3', 'Foto 4'].forEach(f => {
+                        if (item[f]) {
+                            const extraImg = document.createElement('img');
+                            extraImg.src = item[f];
+                            extraImg.alt = f;
+                            extraContainer.appendChild(extraImg);
+                        }
+                    });
+
+                    img.addEventListener('click', () => {
+                        extraContainer.style.display = extraContainer.style.display === 'none' ? 'block' : 'none';
+                    });
+                    content.appendChild(subtitle);
+                    content.appendChild(title);
+                    content.appendChild(title2);
+                    content.appendChild(desc);
+                    content.appendChild(extraContainer);
+
+                    card.appendChild(img);
+                    card.appendChild(content);
+
+                    container.appendChild(card);
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

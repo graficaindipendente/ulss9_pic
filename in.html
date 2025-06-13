@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galleria Schede</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 30px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* Due colonne di uguale larghezza */
+            gap: 20px;
+            /* Spazio tra le schede */
+        }
+
+        .card {
+            display: flex;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            flex: 0 0 150px;
+            /* Larghezza fissa per l'immagine */
+            height: 150px;
+            /* Altezza fissa per l'immagine */
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Assicura che l'immagine copra lo spazio senza distorsioni */
+            display: block;
+        }
+
+        .card-content {
+            flex: 1;
+            /* Il contenuto occupa lo spazio rimanente */
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-content h2 {
+            margin-top: 0;
+            color: #0056b3;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        /* Media Queries per la Responsività */
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                /* Una colonna su schermi più piccoli */
+            }
+
+            .card {
+                flex-direction: column;
+                /* Le schede diventano a colonna su schermi piccoli */
+            }
+
+            .card-image {
+                width: 100%;
+                height: 200px;
+                /* Aumenta l'altezza dell'immagine su schermi piccoli */
+                flex: none;
+                /* Rimuove la flessibilità per l'immagine */
+            }
+
+            .card-content {
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Le Nostre Schede</h1>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/150/FF5733/FFFFFF?text=Immagine+1"
+                        alt="Descrizione Immagine 1">
+                </div>
+                <div class="card-content">
+                    <h2>Titolo della Scheda 1</h2>
+                    <p>Questa è una breve descrizione per la scheda numero uno. Qui puoi inserire informazioni rilevanti
+                        e concisi.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/150/33FF57/FFFFFF?text=Immagine+2"
+                        alt="Descrizione Immagine 2">
+                </div>
+                <div class="card-content">
+                    <h2>Titolo della Scheda 2</h2>
+                    <p>Un'altra descrizione per la scheda due. Cerca di essere sintetico ma informativo, per catturare
+                        l'attenzione.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/150/3357FF/FFFFFF?text=Immagine+3"
+                        alt="Descrizione Immagine 3">
+                </div>
+                <div class="card-content">
+                    <h2>Titolo della Scheda 3</h2>
+                    <p>Testo descrittivo per la terza scheda. Puoi allungare o accorciare questo testo a seconda delle
+                        tue esigenze.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/150/FFFF33/000000?text=Immagine+4"
+                        alt="Descrizione Immagine 4">
+                </div>
+                <div class="card-content">
+                    <h2>Titolo della Scheda 4</h2>
+                    <p>Questa è l'ultima scheda di esempio. Ricorda di sostituire le URL delle immagini con le tue
+                        immagini reali.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
