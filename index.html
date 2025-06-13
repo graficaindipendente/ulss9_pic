@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tabella da Google Sheets (CSV)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Dati da Google Sheets (CSV)</h1>
+    <table id="sheet-table"></table>
+
+    <script>
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRUzc39a4LGDzIITiT5rnAT1CVWPLhYCN4SgEK-9DM2-ewzDalBfRROdPgqBo4yg0iw6tGiOUXIDbzE/pub?gid=0&single=true&output=csv';
+
+        fetch(csvUrl)
+            .then(response => response.text())
+            .then(csvText => {
+                const rows = csvText.trim().split('\n').map(row =>
+                    row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell =>
+                        cell.replace(/^"|"$/g, '').replace(/""/g, '"')  // Rimuove le virgolette doppie
+                    )
+                );
+
+                const table = document.getElementById('sheet-table');
+
+                rows.forEach((row, rowIndex) => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const cellEl = document.createElement(rowIndex === 0 ? 'th' : 'td');
+                        cellEl.textContent = cell;
+                        tr.appendChild(cellEl);
+                    });
+                    table.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error('Errore durante il caricamento del CSV:', error);
+            });
+    </script>
+</body>
+
+</html>
